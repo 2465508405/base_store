@@ -1,0 +1,9 @@
+{"level":"info","message":"failed to fetch URL","foo":"bar","url":"www.aiqiyi.com","attempt":3,"backoff":1000000000}
+{"level":"info","ts":1653200313.416437,"caller":"zap/main.go:104","msg":"failed to fetch URL","url":"www.baidu.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","ts":1653200313.417056,"caller":"zap/main.go:117","msg":"Failed to fetch URL: www.baidu.com"}
+{"level":"info","ts":1653200363.362339,"caller":"zap/main.go:104","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","ts":1653200363.3629172,"caller":"zap/main.go:117","msg":"Failed to fetch URL: www.baiduafaf.com"}
+{"level":"info","ts":1653200431.832096,"caller":"zap/main.go:104","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":1653201107.833867,"caller":"zap/main.go:106","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":1653201313.6544662,"caller":"zap/main.go:120","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"2022-05-22T14:38:00.054+0800","caller":"zap/main.go:120","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
