@@ -1,0 +1,24 @@
+{
+    "name":"user-web",
+    "port":8021,
+    "user_srv":{
+        "host":"127.0.0.1",
+        "port":50051,
+        "name":"user-srv"
+    },
+    "jwt":{
+        "key":"CpX4oA$xr%1PeiisFUu3HGEPlTj!vJU!"
+    },
+    "sms":{
+        "key":"aaaaa",
+        "secret":"ali"
+    },
+    "redis":{
+        "host":"localhost",
+        "port":6379
+    },
+    "consul":{
+        "host":"127.0.0.1",
+        "port":8500
+    }
+}
