@@ -1,0 +1,5 @@
+
+option go_package="": 执行生成go语言; 生成包的方式目录与包名
+
+执行指令：
+protoc -I . --go_out . --go-grpc_out . helloworld.proto
