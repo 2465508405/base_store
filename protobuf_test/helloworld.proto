@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 option go_package = "./proto";
-
 service Hello {//grpc进行识别,生成相应的服务端与客户端接口，protobuf 不进行编译
     rpc Hello(HelloRequest) returns (Response);
 }

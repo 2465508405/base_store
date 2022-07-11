@@ -17,6 +17,7 @@ require (
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/satori/go.uuid v1.2.0
 	github.com/spf13/viper v1.11.0
+	github.com/streadway/amqp v1.0.0 // indirect
 	github.com/stvp/tempredis v0.0.0-20181119212430-b82af8480203
 	github.com/ugorji/go v1.2.7 // indirect
 	go.uber.org/zap v1.21.0
