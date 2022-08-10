@@ -1,0 +1,46 @@
+.header{
+	width:100%;
+	min-height:35px;
+	position:relative;
+	z-index:3;
+	background-color: #0072c6;
+}
+.container-fluid .nav-header{
+	float:left;
+}
+.container-fluid .nav-header > a{
+	color:#fff;
+	line-height:33px;
+	font-size:15px;
+	margin:0 8px;
+}
+.container-fluid .nav-header a.nav-company{
+	margin-left:-8px;
+}
+.nav-right{
+	margin-right:-8px;
+	float:right !important;
+}
+.nav-right .nav-list{
+	list-style:none;
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+.nav-right .nav-list > li{
+	padding:0px;
+}
+.nav-right .nav-list > li > a{
+	color:#fff;
+	line-height:20px;
+	text-decoration:none;
+}
+
+
+
+
+
+
+
+
+

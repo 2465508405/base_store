@@ -1,0 +1,85 @@
+{{ define "home/index.html" }}
+{{template "layouts/header" .}}
+<!-- {{template "layouts/leftmenu" .}} -->
+<div class="main" id="mainWrapper">
+    <h3>链接列表</h3>
+    <div class="wrapper table-scroll-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <a href="/link/create"><button class="btn btn-success btn-xs pull-right">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                添加
+                            </button></a>
+                        <h6 class="panel-title">快捷键</h6>
+                    </div>
+                    <div class="panel-body" style="">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <form class="form-inline" method="get">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group input-group-sm">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">标题</div>
+                                                    <input value="" placeholder="链接名称" id="title" class="form-control" name="name" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group input-group-sm">
+                                                <button type="submit" class="btn btn-primary btn-xs">检索</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-md-12'>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed table-hover">
+                        <thead>
+                        <tr>
+                            <th>链接名称</th>
+                            <th>链接地址</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                            <tr>
+                                <td>baiduwang</td>
+                                <td>http://www.baidu.com</td>
+                                <td><a onclick="del(this);" href="javascript:void(0);" data-id="2">删除</a>／<a href="/link/edit?id">修改</a>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function del(obj){
+        var judge = confirm("确认删除");
+        if(judge){
+            var data = [];
+            $.ajax({
+                url:'/link/del',
+                data:data,
+                dataType:'json',
+                type:'POST',
+                success:function(data){
+                    alert(data.msg);
+                    window.location.href="";
+                }
+            });
+        }
+    }
+</script>
+{{template "layouts/footer" .}}
+{{ end }}
+

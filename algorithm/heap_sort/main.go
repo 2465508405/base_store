@@ -33,6 +33,7 @@ func HeapSort(cha1n chan<- []int, nums []int) {
 	// 1、构建堆(这里用大顶堆构建升序)
 	// 2、调整堆，把堆顶元素和第i-1个元素交换，这样0....i-2就又成为一个堆，继续对这个堆进行构建，调整
 	Hepify(nums, len(nums)) // 先构建n个元素的大顶堆
+	// fmt.Println(nums)
 	for i := len(nums) - 1; i >= 0; i-- {
 		nums[i], nums[0] = nums[0], nums[i] // 调整堆顶元素，把堆顶元素和最后一个元素交换
 		Hepify(nums, i)

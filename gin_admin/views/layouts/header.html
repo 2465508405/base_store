@@ -1,0 +1,56 @@
+{{define "layouts/header"}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>{{.title}}</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+	
+	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css" />
+	<script src="/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/js/My97DatePicker/WdatePicker.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<link href="/css/left.css" rel="stylesheet"  />
+	<link href="/css/head.css" rel="stylesheet"/>
+	<link href="/css/main.css" rel="stylesheet"/>
+	<link href="/css/bs.css" rel="stylesheet"/>
+	<script src="/js/left.js"></script>
+</head>
+<body>
+<nav class="header">
+    <div class="container-fluid">
+        <div class="nav-header">
+            <a href="" href="javascript:void(0)">
+                <i class="glyphicon glyphicon-list"></i>
+            </a>
+            <a class="nav-company" href="">系统后台管理</a>
+        </div>
+        <div class="nav-right">
+            <ul class="nav nav-list">
+            
+                <li class="nav-user dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">ykk
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/logout">
+                                <i class="glyphicon glyphglyphicon glyphicon-log-out"></i>退出</a></li>
+                    </ul>
+                </li>
+                <li class="logout">
+                    <a href="/logout" title="登出">
+                        <i class="glyphicon glyphglyphicon glyphicon-log-out"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="container" class="container-fluid">
+    {{template "layouts/leftmenu" .}}
+{{end}}
