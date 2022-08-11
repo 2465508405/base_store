@@ -2,6 +2,7 @@
 {{template "layouts/header" .}}
 <!-- {{template "layouts/leftmenu" .}} -->
 <div class="main" id="mainWrapper">
+    <title>{{ .Title }}</title>
     <h3>用户列表</h3>
     <div class="wrapper table-scroll-wrapper">
         <div class="row">
@@ -29,12 +30,29 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        
+                        {{  $hello := "aa"  }}
+                        {{range $i, $user := .Users}}
+                            <tr>
+                                {{ $hello := $user.Username }}
+                                <td>{{ $hello }}</td>
+                                <td>{{ $user.Email }}</td>
+                                <td>{{ $user.Mobile }}</td>
+                                {{ if eq $user.Status  "1"}}
+                                    <td>正常</td>
+                                {{else if eq $user.Status  "0"}}
+                                    <td>删除</td>
+                                {{ else }}
+                                    <td>禁用</td>
+                                {{ end }}
+                                <td> {{ $user.Intro }}</td>
+                                <td><a onclick="del(this);" href="javascript:void(0);" data-id="">删除</a>/<a href="/user/edit?id=">修改</a></td>
+                            </tr>
+                        {{end}}
                         <tr>
                             <td>ykk</td>
                             <td>246@qq.com</td>
                             <td>13301372333</td>
-                            <td>hahah</td>
+                            <td>{{ $hello }} </td>
                             <td><a onclick="del(this);" href="javascript:void(0);" data-id="">删除</a>/<a href="/user/edit?id=">修改</a></td>
                         </tr>
                     </table>
