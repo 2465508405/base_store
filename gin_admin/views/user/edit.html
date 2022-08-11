@@ -9,14 +9,14 @@
                     <form class="form-inline" method="post" enctype="multipart/form-data" action="/user/postEdit">
                         <table class="table table-condensed table-add">
                     
-                            <input type="hidden" value="" name="id" />
+                            <input type="hidden" value="{{ .user.ID}}" name="id" />
                             <tr>
                                 <th style="width:10%;">
                                     <label for="case_foreman_id">用户名:</label>
                                 </th>
                                 <td style="width:90%;">
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" id="inputPassword2" name="name" placeholder="用户名">
+                                        <input type="text" value="{{ .user.Name }} " class="form-control" id="inputPassword2" name="name" placeholder="用户名">
                                     </div>
                                 </td>
                             </tr>
@@ -26,7 +26,7 @@
                                 </th>
                                 <td style="width:90%;">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="inputPassword2" name="email" value="" placeholder="邮箱">
+                                        <input type="text" class="form-control" id="inputPassword2" name="email" value="{{ .user.Email }}" placeholder="邮箱">
                                     </div>
                                 </td>
                             </tr>
@@ -48,13 +48,26 @@
                                 <td>
                                     <div class="form-group">
                                         <label class="radio-inline">
-                                            <input type="radio" name="status" id="inlineRadio1" value="1">不通过
+                                            {{ if eq .user.Status 1}}
+                                            <input type="radio" name="status" checked id="inlineRadio1" value="1">通过
+                                            {{ else }}
+                                            <input type="radio" name="status" id="inlineRadio1" value="1">通过
+                                            {{ end }}
                                         </label>
                                         <label class="radio-inline">
+                                            {{ if eq .user.Status 2}}
+                                            <input type="radio" name="status" checked id="inlineRadio2" value="2"> 待审核
+                                            {{ else }}
                                             <input type="radio" name="status" id="inlineRadio2" value="2"> 待审核
+                                            {{ end }}
                                         </label>
                                         <label class="radio-inline">
+                                            {{ if eq .user.Status 3 }}
+                                            <input type="radio" name="status" checked id="inlineRadio3" value="3"> 通过
+                                            {{ else }}
                                             <input type="radio" name="status" id="inlineRadio3" value="3"> 通过
+                                            {{ end }}
+
                                         </label>
                                     </div>
                                 </td>

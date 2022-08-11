@@ -33,19 +33,19 @@
                         {{  $hello := "aa"  }}
                         {{range $i, $user := .Users}}
                             <tr>
-                                {{ $hello := $user.Username }}
+                                {{ $hello := $user.Name }}
                                 <td>{{ $hello }}</td>
                                 <td>{{ $user.Email }}</td>
                                 <td>{{ $user.Mobile }}</td>
-                                {{ if eq $user.Status  "1"}}
+                                {{ if eq $user.Status  1}}
                                     <td>正常</td>
-                                {{else if eq $user.Status  "0"}}
+                                {{else if eq $user.Status  0}}
                                     <td>删除</td>
                                 {{ else }}
                                     <td>禁用</td>
                                 {{ end }}
                                 <td> {{ $user.Intro }}</td>
-                                <td><a onclick="del(this);" href="javascript:void(0);" data-id="">删除</a>/<a href="/user/edit?id=">修改</a></td>
+                                <td><a onclick="del(this);" href="javascript:void(0);" data-id="{{ $user.ID}}">删除</a>/<a href="/user/edit?id={{ $user.ID }}">修改</a></td>
                             </tr>
                         {{end}}
                         <tr>
@@ -65,11 +65,10 @@
     function del(obj){
         var judge = confirm("确认删除");
         if(judge){
-            var _token = '';
             var id = $(obj).attr('data-id');
-            var data = {id:id,_token:_token};
+            var data = {id:id};
             $.ajax({
-                url:'/user/del',
+                url:'/user/postDel',
                 data:data,
                 dataType:'json',
                 type:'POST',
