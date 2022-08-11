@@ -29,5 +29,6 @@ require (
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	google.golang.org/grpc v1.46.2
 	google.golang.org/protobuf v1.28.0 // indirect
-	gorm.io/gorm v1.23.5
+	gorm.io/driver/mysql v1.3.5
+	gorm.io/gorm v1.23.8
 )

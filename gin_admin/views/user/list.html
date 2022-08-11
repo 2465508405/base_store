@@ -1,0 +1,68 @@
+{{ define "user/list.html" }}
+{{template "layouts/header" .}}
+<!-- {{template "layouts/leftmenu" .}} -->
+<div class="main" id="mainWrapper">
+    <h3>用户列表</h3>
+    <div class="wrapper table-scroll-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <a href="/user/add"><button class="btn btn-success btn-xs pull-right">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            添加
+                        </button></a>
+                        <h6 class="panel-title">快捷键</h6>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-md-12'>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed table-hover">
+                        <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>手机号</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        
+                        <tr>
+                            <td>ykk</td>
+                            <td>246@qq.com</td>
+                            <td>13301372333</td>
+                            <td>hahah</td>
+                            <td><a onclick="del(this);" href="javascript:void(0);" data-id="">删除</a>/<a href="/user/edit?id=">修改</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function del(obj){
+        var judge = confirm("确认删除");
+        if(judge){
+            var _token = '';
+            var id = $(obj).attr('data-id');
+            var data = {id:id,_token:_token};
+            $.ajax({
+                url:'/user/del',
+                data:data,
+                dataType:'json',
+                type:'POST',
+                success:function(data){
+                    alert(data.msg);
+                    window.location.href="";
+                }
+            });
+        }
+    }
+</script>
+{{template "layouts/footer" .}}
+{{ end }}
+
