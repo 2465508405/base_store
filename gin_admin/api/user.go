@@ -2,16 +2,13 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-07-17 12:53:10
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-12 10:05:49
+ * @LastEditTime: 2022-08-12 11:45:41
  * @FilePath: /allfunc/leju_test/api/user.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 package api
 
 import (
-	"crypto/md5"
-	"encoding/hex"
-	"io"
 	"net/http"
 	"project/allfunc/gin_admin/global"
 	"project/allfunc/gin_admin/models"
@@ -44,7 +41,7 @@ func UserCreate(c *gin.Context) {
 	username := c.PostForm("name")
 	password := c.PostForm("password")
 
-	pass := Md5Crypt(password)
+	pass := global.Md5Crypt(password)
 
 	db.Create(&models.User{Name: username, Password: pass})
 	c.Redirect(http.StatusMovedPermanently, "/user/list")
@@ -65,7 +62,7 @@ func UserUpdate(c *gin.Context) {
 	name := c.PostForm("name")
 	email := c.PostForm("email")
 	password := c.PostForm("password")
-	password = Md5Crypt(password)
+	password = global.Md5Crypt(password)
 	status, _ := strconv.Atoi(c.PostForm("status"))
 	db := global.DB
 	var user models.User
@@ -89,11 +86,4 @@ func UserDel(c *gin.Context) {
 
 func FileUpload(c *gin.Context) {
 
-}
-
-func Md5Crypt(password string) string {
-	m := md5.New()
-	io.WriteString(m, password)
-	pass := hex.EncodeToString(m.Sum(nil))
-	return pass
 }

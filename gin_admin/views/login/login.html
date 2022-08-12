@@ -56,7 +56,7 @@
         var password = $("#password").val();
 //        var captcha = $("#captcha").val();
         var token =  '';
-        var data = {'name':name,'password':password,'_token':token};
+        var data = {'name':name,'password':password};
         $.ajax({
             url:'/auth/login',
             data:data,
@@ -64,7 +64,8 @@
             dataType:'json',
             success:function(res){
                 if(res.code == 0){
-                    window.location.href="/";
+                    alert(777);
+                    window.location.href="/home";
                 }else{
                     if(res.code == 2){
                         $("#captcha-msg").text('验证码有误');

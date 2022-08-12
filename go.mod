@@ -24,6 +24,8 @@ require (
 	github.com/streadway/amqp v1.0.0 // indirect
 	github.com/stvp/tempredis v0.0.0-20181119212430-b82af8480203
 	github.com/ugorji/go v1.2.7 // indirect
+	github.com/yudeguang/hashset v0.0.0-20220729053710-a33c60fe5839 // indirect
+	github.com/yudeguang/slice v0.0.0-20220729053745-2c53bc25e6b7 // indirect
 	go.uber.org/zap v1.21.0
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
