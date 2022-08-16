@@ -1,25 +1,35 @@
-package api
+/*
+ * @Author: ykk ykk@qq.com
+ * @Date: 2022-08-12 10:03:29
+ * @LastEditors: ykk ykk@qq.com
+ * @LastEditTime: 2022-08-16 17:40:15
+ * @FilePath: /allfunc/gin_admin/api/v1/system/login.go
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+package system
 
 import (
 	"fmt"
 	"net/http"
 	"project/allfunc/gin_admin/global"
-	"project/allfunc/gin_admin/models"
+	"project/allfunc/gin_admin/models/system"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Login(c *gin.Context) {
+type LoginApi struct{}
+
+func (la *LoginApi) Login(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "login/login.html", gin.H{"title": "后台管理系统", "address": "www.5lmh.com"})
 
 }
 
-func AuthLogin(c *gin.Context) {
+func (la *LoginApi) AuthLogin(c *gin.Context) {
 	name := c.PostForm("name")
 	passwod := c.PostForm("password")
-	var user models.User
-	result := global.DB.Where("name = ? and password = ? ", name, global.Md5Crypt(passwod)).First(&user)
+	var user system.User
+	result := global.GVA_DB.Where("name = ? and password = ? ", name, global.Md5Crypt(passwod)).First(&user)
 	fmt.Println(result)
 	cookie, err := c.Cookie("sessionid")
 	if err != nil {

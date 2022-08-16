@@ -13,6 +13,7 @@ require (
 	github.com/go-playground/validator/v10 v10.11.0 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-redsync/redsync/v4 v4.5.0 // indirect
+	github.com/gorilla/sessions v1.2.1
 	github.com/gorilla/websocket v1.5.0
 	github.com/hashicorp/consul/api v1.12.0
 	github.com/imdario/mergo v0.3.13 // indirect

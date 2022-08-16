@@ -1,3 +1,11 @@
+<!--
+ * @Author: ykk ykk@qq.com
+ * @Date: 2022-08-10 11:15:51
+ * @LastEditors: ykk ykk@qq.com
+ * @LastEditTime: 2022-08-15 11:32:41
+ * @FilePath: /allfunc/gin_admin/views/layouts/leftmenu.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 {{define "layouts/leftmenu"}}
 <div id="sidebar">
     <nav class="sidebar">
@@ -10,6 +18,15 @@
                 </a>
                 <ul class="side-ul-menu user-manage">
                     <li class="user-list"><a href="/user/list">用户列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);">
+                    <i class="glyphicon glyphicon-user"></i>订单管理
+                    <i class="glyphicon toggle-icon glyphicon-menu-down"></i>
+                </a>
+                <ul class="side-ul-menu order-manage">
+                    <li class="order-list"><a href="/order/list">订单列表</a></li>
                 </ul>
             </li>
             <li>

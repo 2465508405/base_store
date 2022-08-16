@@ -13,7 +13,7 @@
     	$(className).parent().parent().find('.toggle-icon').eq(0).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-left');
     }
 	var s = '/manage/add';
-        if(lefturl == '/category/list' || lefturl == '/category/create' || lefturl == '/category/edit'){
+    if(lefturl == '/category/list' || lefturl == '/category/create' || lefturl == '/category/edit'){
 		$('.manage_base1').addClass('active');
 		$('.manage_base1').parent('.side-ul-menu').css("display","block");
 		$('.manage_base1').parent().parent().find('.toggle-icon').eq(0).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-left');
@@ -22,6 +22,11 @@
     	$('.user-list').addClass('active');
     	$('.user-list').parent('.side-ul-menu').css("display","block");
     	$('.user-list').parent().parent().find('.toggle-icon').eq(0).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-left');
+    }
+	if(lefturl == '/order/list'){
+    	$('.order-list').addClass('active');
+    	$('.order-list').parent('.side-ul-menu').css("display","block");
+    	$('.order-list').parent().parent().find('.toggle-icon').eq(0).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-left');
     }
     if(lefturl == '/consult/list' || lefturl == '/consult/create' || lefturl == '/consult/edit'){
     	$('.consult-us').addClass('active');

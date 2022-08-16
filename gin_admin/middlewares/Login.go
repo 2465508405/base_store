@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-10 10:56:50
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-12 15:21:17
+ * @LastEditTime: 2022-08-15 11:42:02
  * @FilePath: /allfunc/gin_admin/middlewares/Login.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -11,7 +11,7 @@ package middlewares
 import (
 	"fmt"
 	"net/http"
-	"time"
+	"project/allfunc/gin_admin/lib"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yudeguang/slice"
@@ -19,16 +19,17 @@ import (
 
 func LoginMiddleWare(routers []interface{}) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		t := time.Now()
+
 		path := c.Request.RequestURI
 
 		fmt.Printf("urlss :%s\n", path)
-		fmt.Printf("time:%s\n", t)
 		if slice.Contains(routers, path) {
 			c.Next()
 			return
 		}
-		fmt.Println("home:afafaffafafa")
+		lib.SessionSet(c)
+
+		lib.GetSession(c.Request, c.Writer)
 		if cookie, err := c.Cookie("sessionid"); err == nil {
 			fmt.Printf("get login cookie info : %s\n", cookie)
 			if cookie == "5" {
