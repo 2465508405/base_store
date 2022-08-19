@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-07-17 12:53:10
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-16 16:44:17
+ * @LastEditTime: 2022-08-16 23:02:54
  * @FilePath: /allfunc/leju_test/api/user.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"project/allfunc/gin_admin/global"
 	"project/allfunc/gin_admin/models/system"
+	"project/allfunc/gin_admin/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -25,9 +26,8 @@ type UserInfo struct {
 type UserApi struct{}
 
 func (ua *UserApi) UserList(c *gin.Context) {
-	db := global.GVA_DB
-	var users []system.User
-	db.Select("id", "name", "email", "status", "intro", "age").Find(&users)
+
+	users := service.ServiceGroupApp.SystemServiceGroup.UserService.UserList()
 	Info := UserInfo{Title: "后台", Name: "sfafaf", Users: users}
 
 	c.HTML(http.StatusOK, "user/list.html", Info)

@@ -1,3 +1,11 @@
+/*
+ * @Author: ykk ykk@qq.com
+ * @Date: 2022-05-22 22:00:57
+ * @LastEditors: ykk ykk@qq.com
+ * @LastEditTime: 2022-08-19 17:24:24
+ * @FilePath: /allfunc/viper/main.go
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 package main
 
 import (
@@ -71,8 +79,36 @@ func DevOnlineConfigDiv() {
 	time.Sleep(30 * time.Second)
 
 }
+
+type MysqlJson struct {
+	Port int    `mapstructure:"port"`
+	User string `mapstructure:"user"`
+}
+type JsonConfig struct {
+	Name      string `mapstructure:"name"`
+	Age       string `mapstructure:"age"`
+	MysqlJson `mapstructure:"mysql"`
+}
+
+func ReadConfigJson() {
+	viper.SetConfigName("config") // name of config file (without extension)
+	viper.SetConfigType("json")   // REQUIRED if the config file does not have the extension in the name
+	viper.AddConfigPath("./")     // path to look for the config file in
+	err := viper.ReadInConfig()   // Find and read the config file
+	if err != nil {               // Handle errors reading the config file
+		panic(fmt.Errorf("fatal error config file: %w", err))
+	}
+	sc := JsonConfig{}
+	viper.Unmarshal(&sc)
+	fmt.Println(sc)
+	fmt.Println(viper.AllSettings())
+	fmt.Println(viper.Get("name"))
+}
+
 func main() {
 	// readConfig()
 	// fmt.Println(GetEnvInfo("MXSHOP_DEBUG"))
 	DevOnlineConfigDiv()
+
+	// ReadConfigJson()
 }

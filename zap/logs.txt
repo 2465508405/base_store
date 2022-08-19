@@ -7,3 +7,10 @@
 {"level":"info","time":1653201107.833867,"caller":"zap/main.go:106","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
 {"level":"info","time":1653201313.6544662,"caller":"zap/main.go:120","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
 {"level":"info","time":"2022-05-22T14:38:00.054+0800","caller":"zap/main.go:120","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"2022-08-18T17:44:37.285+0800","caller":"zap/main.go:126","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"2022-08-18 17:55:44","caller":"zap/main.go:127","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"18008-08-18 17:56:05","caller":"zap/main.go:127","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"18008-08-18 17:56:07","caller":"zap/main.go:127","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"2022-08-18 17:56:44","caller":"zap/main.go:127","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"18026-08-18 17:57:26","caller":"zap/main.go:127","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
+{"level":"info","time":"2022-08-18 17:57:38","caller":"zap/main.go:127","msg":"failed to fetch URL","url":"www.baiduafaf.com","attempt":3,"ceshi":"cs","file":"./1.txt","backoff":1}
