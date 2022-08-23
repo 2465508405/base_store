@@ -1,12 +1,2 @@
-# name: 'shop-srv'
-system:
-  db-type: 'mysql'
-mysql:
-  host: '127.0.0.1'
-  port: 3306
-  db: 'shop_db'
-  user: 'root'
-  password: ''
-consul:
-  host: '127.0.0.1'
-  port: 8500
+host: '127.0.0.1'
+port: 8848

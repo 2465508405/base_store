@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -27,7 +28,9 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 		log.Printf("recv: %s", message)
-		err = c.WriteMessage(mt, message)
+		msg := string(message)
+		msg = msg + "233222abc"
+		err = c.WriteMessage(mt, []byte(msg))
 		if err != nil {
 			log.Println("write:", err)
 			break
@@ -36,7 +39,21 @@ func echo(w http.ResponseWriter, r *http.Request) {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	homeTemplate.Execute(w, "ws://"+r.Host+"/echo")
+	// 解析模板
+	t, err := template.ParseFiles("./index.html")
+	if err != nil {
+		fmt.Println("Parse template failed! err:", err)
+		return
+	}
+	data := map[string]interface{}{
+		"host": "ws://localhost:8089/echo",
+	}
+	err = t.Execute(w, data)
+	if err != nil {
+		fmt.Println("render template failed,err : ", err)
+		return
+	}
+	// homeTemplate.Execute(w, "ws://"+r.Host+"/echo")
 }
 
 func main() {
