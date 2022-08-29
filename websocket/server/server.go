@@ -29,7 +29,12 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		}
 		log.Printf("recv: %s", message)
 		msg := string(message)
-		msg = msg + "233222abc"
+		if msg == "ping" {
+			msg = "pong"
+		} else {
+			msg = msg + "233222abc"
+		}
+
 		err = c.WriteMessage(mt, []byte(msg))
 		if err != nil {
 			log.Println("write:", err)

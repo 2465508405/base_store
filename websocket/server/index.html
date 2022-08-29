@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-22 11:30:17
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-22 11:45:27
+ * @LastEditTime: 2022-08-23 17:21:05
  * @FilePath: /allfunc/websocket/server/index.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -39,6 +39,41 @@ You can change the message and send multiple times.
             output.appendChild(d);
             output.scroll(0, output.scrollHeight);
         };
+
+        var checkInterval =  function() {
+            if (ws == null) {
+                reconnection()
+            }else {
+                 ws.send("ping");
+            }
+        }
+        
+        var reconnection = function() {
+            console.log("reconnect")
+            
+            ws = new WebSocket("{{.host}}");
+            ws.onopen = function(evt) {
+                print("OPEN");
+            }
+            ws.onclose = function(evt) {
+                print("CLOSE");
+                ws = null;
+            }
+            ws.onmessage = function(evt) {
+                if (evt.data == "pong" ){
+                    console.log("服务端链接正常")
+                }else {
+                    print("RESPONSE: " + evt.data);
+                }
+                
+            }
+            ws.onerror = function(evt) {
+                print("ERROR: " + evt.data);
+            }
+                // ws = new WebSocket("ws://localhost:8089/echo");
+        
+        }
+        
         document.getElementById("open").onclick = function(evt) {
             if (ws) {
                 return false;
@@ -52,11 +87,18 @@ You can change the message and send multiple times.
                 ws = null;
             }
             ws.onmessage = function(evt) {
-                print("RESPONSE: " + evt.data);
+                if (evt.data == "pong" ){
+                    console.log("服务端链接正常")
+                }else {
+                    print("RESPONSE: " + evt.data);
+                }
+               
             }
             ws.onerror = function(evt) {
                 print("ERROR: " + evt.data);
             }
+
+            setInterval(checkInterval, 2000)
             return false;
         };
         document.getElementById("send").onclick = function(evt) {
