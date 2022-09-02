@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-29 16:47:36
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-29 17:32:32
+ * @LastEditTime: 2022-08-31 18:31:53
  * @FilePath: /allfunc/os_io/main.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,11 +10,11 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
+	"project/allfunc/os_io_bufio_ioutil/relate"
 )
 
 func file_open() {
@@ -30,8 +30,12 @@ func file_open() {
 }
 
 func main() {
+
+	get_pwd() //获取文件目录
+	// os_stat()//文件是否存在
 	// file_open()
 	// file_write()
+	// file_remove()
 	// file_read()
 	// file_copy()
 	// bufio_re()
@@ -39,22 +43,40 @@ func main() {
 	// ioutil_re()
 
 	//模拟cat命令
-	flag.Parse() // 解析命令行参数
-	if flag.NArg() == 0 {
-		// 如果没有参数默认从标准输入读取内容
-		cat(bufio.NewReader(os.Stdin))
-	}
-	fmt.Println(flag.Arg(0))
-	// 依次读取每个指定文件的内容并打印到终端
-	for i := 0; i < flag.NArg(); i++ {
-		f, err := os.Open(flag.Arg(i))
-		if err != nil {
-			fmt.Fprintf(os.Stdout, "reading from %s failed, err:%v\n", flag.Arg(i), err)
-			continue
-		}
+	// flag.Parse() // 解析命令行参数
+	// if flag.NArg() == 0 {
+	// 	// 如果没有参数默认从标准输入读取内容
+	// 	cat(bufio.NewReader(os.Stdin))
+	// }
+	// fmt.Println(flag.Arg(0))
+	// // 依次读取每个指定文件的内容并打印到终端
+	// for i := 0; i < flag.NArg(); i++ {
+	// 	f, err := os.Open(flag.Arg(i))
+	// 	if err != nil {
+	// 		fmt.Fprintf(os.Stdout, "reading from %s failed, err:%v\n", flag.Arg(i), err)
+	// 		continue
+	// 	}
 
-		cat(bufio.NewReader(f))
+	// 	cat(bufio.NewReader(f))
+	// }
+}
+
+//文件是否存在
+func os_stat() {
+
+	stat, err := os.Stat("./main.txt")
+	if err != nil {
+		panic(err)
 	}
+	fmt.Println(stat.Mode())
+}
+
+//获取文件目录
+
+func get_pwd() {
+	// dir, _ := os.Getwd() //获取当前目录
+
+	relate.GetPwd()
 }
 
 // cat命令实现
@@ -169,9 +191,14 @@ func file_read() {
 		return
 	}
 	defer file.Close()
+
 	// 定义接收文件读取的字节数组
 	var buf [128]byte
 	var content []byte
+	//从某个位置开始写
+	// tmp := make([]byte, 128)
+	// file.ReadAt(tmp, 3)
+	// fmt.Println(string(tmp))
 	for {
 		n, err := file.Read(buf[:])
 		if err == io.EOF {
@@ -191,7 +218,8 @@ func file_read() {
 //写文件
 func file_write() {
 	// 新建文件
-	file, err := os.Create("./main.txt")
+	// file, err := os.Create("./main.txt")
+	file, err := os.OpenFile("./main.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -200,5 +228,18 @@ func file_write() {
 	for i := 0; i < 5; i++ {
 		file.WriteString("ab\n")
 		file.Write([]byte("cd\n"))
+		fmt.Println(77)
+
 	}
+
+	/**
+	*文件开启追加写，会报错
+	*If file was opened with the O_APPEND flag, WriteAt returns an error.
+	 */
+	file.WriteAt([]byte("gg\n"), int64(1))
+
+}
+
+func file_remove() {
+	os.Remove("./main.txt")
 }
