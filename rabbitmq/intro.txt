@@ -5,6 +5,23 @@ golang 可使用库 github.com/streadway/amqp 操作 rabbitmq 。使用下面命
 go get -v github.com/streadway/amqp
 
 
+fanout: fanout是扇形的意思，该类型通常叫作广播类型。fanout类型的Exchange不处理Routing key，
+而是会将发送给它的消息路由到所有与它绑定的Queue上。 不需要设置routing key 
+
+topic:意思是主题，topic类型的Exchange会根据通配符对Routing key进行匹配，只要Routing key满足某个通配符的条件，就会被路由到对应的Queue上。通配符的匹配规则如下：
+
+● Routing key必须是一串字符串，每个单词用“.”分隔；
+
+● 符号“#”表示匹配一个或多个单词；
+
+● 符号“*”表示匹配一个单词。
+
+direct:direct类型的Exchange会将消息转发到指定Routing key的Queue上，Routing key的解析规则为精确匹配。
+也就是只有当producer发送的消息的Routing key与某个Binding key相等时，消息才会被分发到对应的Queue上。
+
+headers: headers Exchange中，Exchange与Queue之间的绑定不再通过Binding key绑定，而是通过Arguments绑定。
+比如我们现在有一个headers类型的Exchange，下面通过不同的Arguments绑定了三个Queue：
+
 2. 生产者流程
 
 在 Golang 中创建 rabbitmq 生产者基本步骤是：
@@ -43,6 +60,14 @@ err = channel.ExchangeDeclare("e1", "direct", true, false, false, true, nil)
     args 其它配置
 
 参数说明要点：
+
+    durable:持久化说明
+        RabbitMq对交换器，队列，消息都可以声明持久化属性，交换器和队列持久化属性为durable（其属性值为false代表不持久化，属性值为true代表持久化），消息持久化属性为deliveryMode（其属性值为1代表不持久化，属性值为2代表持久化）。
+    在说明durable之前，需要指出的是：
+        1，RabbitMq实例以broker表示，当broker重启时，所有未申明durable的交换器和队列都会被删除。
+        2，RabbitMq中消息都被保存在队列中，所以如果队列都删除了，消息不管有没有设置deliveryMode=2都不管用了。
+
+    综上所述，可以得出的结论为，交换器未声明durable属性不会影响队列的持久化（但是发送方的producer会被影响，无法正常发送消息）；只声明队列持久化，重启之后消息会丢失；只声明消息的持久化，重启之后消息随队列一起丢失。单单设置消息持久化而不设置队列的持久化没有任何意义。
 
     autoDelete :
 
@@ -140,16 +165,18 @@ err = channel.Publish("e1", "q1Key", true, false, amqp.Publishing{
 
     immediate
 
-参数告诉服务器至少将该消息路由到一个队列中，否则将消息返回给生产者。 imrnediate 参数告诉服务器，如果该消息关联的队列上有消费者，则立刻投递：如果所有匹配的队列上都没有消费者，则直接将消息返还给生产者，不用将消息存入队列而等待消费者了。
+参数告诉服务器至少将该消息路由到一个队列中，否则将消息返回给生产者。 immediate 参数告诉服务器，如果该消息关联的队列上有消费者，则立刻投递：如果所有匹配的队列上都没有消费者，则直接将消息返还给生产者，不用将消息存入队列而等待消费者了。
 
 RabbitMQ 3.0版本开始去掉了对 imrnediate 参数的支持。
 
-其中 amqp.Publishing 的 DeliveryMode 如果设为 amqp.Persistent 则消息会持久化。需要注意的是如果需要消息持久化 Queue 也是需要设定为持久化才有效。
+其中 amqp.Publishing 的 DeliveryMode 如果设为 amqp.Persistent 则消息会持久化（当系统重启时，持久化消息会恢复到队列上，非持久化消息会被删除，）。需要注意的是如果需要消息持久化 Queue 也是需要设定为持久化才有效。
 3. 消费者流程
 
 消费者的步骤和生产者流程基本类似，只是将生产者流程中的投递消息变为消费消息。
 
 Rabbitmq 消费方式共有 2 种，分别是推模式和拉模式。
+
+
 3.1 推模式
 
 推模式是通过持续订阅的方式来消费信息， Consume 将信道( Channel )设置为接收模式，直到取消队列的订阅为止。在接收模式期间， RabbitMQ 会不断地推送消息给消费者。推送消息的个数还是会受到 channel.Qos 的限制。
@@ -161,7 +188,7 @@ deliveries, err := channel.Consume("q1", "any", false, false, false, true, nil)
     queue 队列名称
     consumer 消息者名称
     autoAck 是否确认消费
-    exclusive 排他
+    exclusive 排他 ：设置是否排他，排他表示当前队列只能给一个消费者使用。
     noLocal
     noWait bool
     args Table
@@ -195,3 +222,9 @@ if ok {
 3.2 拉模式
 
 相对来说比较简单，是由消费者主动拉取信息来消费，每次只消费一条消息，同样也需要进行 ack 确认消费。
+
+
+
+ACK机制的开发注意事项
+
+如果你设置为手动回复，而且在程序中忘记了ACK，那么后果很严重。当消费者退出时候，Message会一直重新分发。然后RabbitMQ会占用越来越多的内容，由于RabbitMQ会长时间运行，因此这个"内存泄漏"是致命的。
