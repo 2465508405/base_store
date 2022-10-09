@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-09-13 22:31:56
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-09-14 23:09:08
+ * @LastEditTime: 2022-09-22 10:24:09
  * @FilePath: /allfunc/net_http/net/proxy/main.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -20,11 +20,24 @@ import (
 type web1handler struct {
 }
 
-func (web1handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (wh web1handler) GetIP(r *http.Request) string {
+	ips := r.Header.Get("x-forwarded-for")
+	if ips != "" {
+		ips_list := strings.Split(ips, ",")
+		if len(ips_list) > 0 && ips_list[0] != "" {
+			return ips_list[0]
+		}
+	}
+
+	return r.RemoteAddr
+}
+
+func (wh web1handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	auth := r.Header.Get("Authorization")
 	if auth == "" {
 		w.Header().Set("WwW-Authenticate", `Basic realm="您必须输入用户名和密码"`)
+		w.Header().Set("Content-Type", "application/json;charset=utf-8")
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
@@ -35,7 +48,8 @@ func (web1handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		info, _ := base64.StdEncoding.DecodeString(auth_list[1])
 		fmt.Println(string(info))
 		if string(info) == "ykk:123" {
-			w.Write([]byte("<h2>web</h2>"))
+			w.Write([]byte(fmt.Sprintf("<h2>web来自于：%s</h2>", wh.GetIP(r))))
+			// w.Write([]byte(fmt.Sprintf("<h2>web来自于：%s</h2>", r.RemoteAddr)))
 			return
 		}
 	}

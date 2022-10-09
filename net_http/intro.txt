@@ -1,0 +1,9 @@
+
+r *http.Request     w.Response
+
+
+
+r.Header.Set() //添加一个表头字段得到头部
+
+
+r.Header.Add() ;//字段存在 追加写入

@@ -1,0 +1,10 @@
+.center {
+
+	width:500px;
+	height:500px;
+	margin:0 auto;
+}
+
+#myCanvas {
+    background-color: rgb(204, 216, 216);
+}

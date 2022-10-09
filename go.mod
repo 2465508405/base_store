@@ -17,6 +17,8 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/hashicorp/consul/api v1.12.0
 	github.com/imdario/mergo v0.3.13 // indirect
+	github.com/mattn/go-gtk v0.0.0-20191030024613-af2e013261f5
+	github.com/mattn/go-pointer v0.0.1 // indirect
 	github.com/nacos-group/nacos-sdk-go v1.1.1 // indirect
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/pelletier/go-toml v1.9.5 // indirect
