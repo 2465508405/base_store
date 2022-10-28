@@ -1,0 +1,95 @@
+注释
+
+{{/* a comment */}}
+注释，执行时会忽略。可以多行。注释不能嵌套，并且必须紧贴分界符始止。
+
+变量 
+{{ $hello := "ai" }} //声明变量 hello 值为ai    使用 {{ $hello }}
+{{ $tempSex := .m1.Sex }}
+{{ $hello }}
+{{ $tempSex }}
+
+移除空格
+
+有时候我们在使用模板语法的时候会不可避免的引入一下空格或者换行符，这样模板最终渲染出来的内容可能就和我们想的不一样，这个时候可以使用{{-语法去除模板内容左侧的所有空白符号， 使用-}}去除模板内容右侧的所有空白符号。
+
+{{- .Name -}}
+
+条件判断
+
+Go模板语法中的条件判断有以下几种:
+
+{{if pipeline}} T1 {{end}}
+
+{{if pipeline}} T1 {{else}} T0 {{end}}
+
+{{if pipeline}} T1 {{else if pipeline}} T0 {{end}}
+
+例如：
+
+{{ if eq .m1.Name "dahe" }}
+  <h2>你好啊，dahe</h2>
+{{ end }}
+
+比较函数
+
+布尔函数会将任何类型的零值视为假，其余视为真。
+
+下面是定义为函数的二元比较运算的集合：
+
+eq      如果arg1 == arg2则返回真
+ne      如果arg1 != arg2则返回真
+lt      如果arg1 < arg2则返回真
+le      如果arg1 <= arg2则返回真
+gt      如果arg1 > arg2则返回真
+ge      如果arg1 >= arg2则返回真
+
+为了简化多参数相等检测，eq（只有eq）可以接受2个或更多个参数，它会将第一个参数和其余参数依次比较，返回下式的结果：
+
+{{eq arg1 arg2 arg3}}
+
+
+range   :我们在后端传入一个切片：
+
+hobbyList := []string{
+	"C++",
+	"Java",
+	"Go",
+}
+m1 := map[string]interface{}{
+	"Name":  "dahe", // map无需首字母大写
+	"Sex":   "女",
+	"Age":   "20",
+	"Hobby": hobbyList,
+}
+
+
+模板使用range进行渲染：
+
+{{ range $idx,$hobby := .m1.Hobby }}
+    <p>{{$idx}} - {{$hobby}}</p>
+{{ end }}
+
+在这里插入图片描述
+range-else：
+
+{{ range $idx,$hobby := .m1.Hobby }}
+    <p>{{$idx}} - {{$hobby}}</p>
+{{else}}
+    没有爱好
+{{ end }}
+
+index取值：
+
+{{with .m1}}
+    <p>{{ index .Hobby 2 }}</p>
+    <!--取第三个元素-->
+{{end}}
+
+with
+简化模板语言变量的使用，例如，局部使用.m1值
+
+{{with .m1}}
+    <p>{{.Name}}</p>
+    <p>{{.Age}}</p>
+{{end}}
