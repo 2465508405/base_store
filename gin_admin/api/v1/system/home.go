@@ -22,6 +22,7 @@ type HomeApi struct {
 func (ua *HomeApi) Home(c *gin.Context) {
 	fmt.Println(global.GVA_CONFIG)
 	name := c.DefaultQuery("name", "枯藤")
+	fmt.Println("global.GVA_DB:", global.GVA_DB)
 	fmt.Println(name)
 	c.HTML(http.StatusOK, "home/index.html", gin.H{"title": "后台管理系统", "address": "www.5lmh.com"})
 }

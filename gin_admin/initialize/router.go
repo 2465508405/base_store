@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-15 16:31:47
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-15 17:57:58
+ * @LastEditTime: 2022-11-02 14:57:08
  * @FilePath: /allfunc/gin_admin/initialize/router.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -24,7 +24,7 @@ var options = []Option{}
 // 	options = append(options, opts...)
 // }
 
-var WhiteRouter = []interface{}{"/login", "/auth/login"}
+var WhiteRouter = []interface{}{"/login", "/auth/login", "/register", "/auth/register"}
 
 func InitRouter() *gin.Engine {
 	r := gin.Default()
@@ -39,9 +39,10 @@ func InitRouter() *gin.Engine {
 
 	// Include(systemRouter.OrderRouter.OrderRouter, UserRouter, InitHome, LoginRouter)
 
-	r.Use(middlewares.LoginMiddleWare(WhiteRouter))
+	// r.Use(middlewares.LoginMiddleWare(WhiteRouter))
 	RouterGroup := r.Group("")
 	RouterGroup.Use(middlewares.LoginMiddleWare(WhiteRouter))
+	// RouterGroup.Use()
 	{
 		systemRouter.InitHomeRouter(RouterGroup)
 		systemRouter.InitUserRouter(RouterGroup)

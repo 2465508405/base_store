@@ -1,12 +1,12 @@
 /*
  * @Author: ykk ykk@qq.com
- * @Date: 2022-08-16 22:12:18
+ * @Date: 2022-10-31 16:16:11
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-10-28 15:09:18
- * @FilePath: /allfunc/gin_admin/initialize/gorm_mysql.go
+ * @LastEditTime: 2022-10-31 16:16:54
+ * @FilePath: /allfunc/gin_admin/common/mysql.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-package initialize
+package common
 
 import (
 	"fmt"

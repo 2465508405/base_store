@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-12 17:48:04
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-12 17:48:28
+ * @LastEditTime: 2022-11-02 15:43:29
  * @FilePath: /allfunc/gin_admin/lib/session.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -38,7 +38,7 @@ func GetSession(r *http.Request, w http.ResponseWriter) {
 		return
 	}
 	foo := session.Values["foo"]
-	fmt.Println(foo)
+	fmt.Println("foo:", foo)
 }
 
 func SessionExpire(c *gin.Context) {

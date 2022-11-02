@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-13 15:46:15
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-16 16:40:25
+ * @LastEditTime: 2022-10-28 10:48:51
  * @FilePath: /gin_admin/models/goods.GO
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -70,6 +70,6 @@ type Orders struct {
 	ClickNum int32   `gorm:"type:int;default:0;not null"`
 	SoldNum  int32   `gorm:"type:int;default:0;not null"`    //销售量
 	Price    float32 `gorm:"type:float;default:0;not null;"` //价格
-	Status   int32   `gorm:type:tinyint(2);default:0;not null;comment:0.待支付,1.已支付,2退款,3.删除;"`
-	Desc     string  `gorm:type:text;defafult:'';not null;comment:订单描述;"`
+	Status   int32   `gorm:"type:tinyint(2);default:0;not null;comment:0.待支付,1.已支付,2退款,3.删除;"`
+	Desc     string  `gorm:"type:text;defafult:'';not null;comment:订单描述;"`
 }

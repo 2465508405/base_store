@@ -2,17 +2,17 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-07-17 12:53:10
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-16 23:02:54
+ * @LastEditTime: 2022-11-01 18:28:05
  * @FilePath: /allfunc/leju_test/api/user.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 package system
 
 import (
+	"fmt"
 	"net/http"
 	"project/allfunc/gin_admin/global"
 	"project/allfunc/gin_admin/models/system"
-	"project/allfunc/gin_admin/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -27,7 +27,7 @@ type UserApi struct{}
 
 func (ua *UserApi) UserList(c *gin.Context) {
 
-	users := service.ServiceGroupApp.SystemServiceGroup.UserService.UserList()
+	users := userService.UserList()
 	Info := UserInfo{Title: "后台", Name: "sfafaf", Users: users}
 
 	c.HTML(http.StatusOK, "user/list.html", Info)
@@ -38,14 +38,20 @@ func (ua *UserApi) UserAdd(c *gin.Context) {
 }
 
 func (ua *UserApi) UserCreate(c *gin.Context) {
-	db := global.GVA_DB
-	username := c.PostForm("name")
-	password := c.PostForm("password")
+	// db := global.GVA_DB
+	// username := c.PostForm("name")
+	// password := c.PostForm("password")
 
-	pass := global.Md5Crypt(password)
-
-	db.Create(&system.User{Name: username, Password: pass})
-	c.Redirect(http.StatusTemporaryRedirect, "/user/list")
+	// pass := global.Md5Crypt(password)
+	// var userInfo system.User
+	// _ = c.ShouldBindJSON(&userInfo)
+	// fmt.Println("userInfo:", userInfo)
+	if result := userService.UserCreate(c); !result {
+		fmt.Println("创建失败")
+	}
+	fmt.Println("3333")
+	// db.Create(&system.User{Name: username, Password: pass})
+	c.Redirect(http.StatusSeeOther, "/user/list") //303
 	// c.HTML(http.StatusOK, "user/list.html", gin.H{"title": "后台管理系统", "address": "www.5lmh.com"})
 }
 
@@ -75,14 +81,14 @@ func (ua *UserApi) UserUpdate(c *gin.Context) {
 }
 
 func (ua *UserApi) UserDel(c *gin.Context) {
-	id := c.PostForm("id")
-	db := global.GVA_DB
-	result := db.Delete(&system.User{}, id)
-	if result.RowsAffected > 0 {
-		c.JSON(http.StatusOK, gin.H{
-			"msg": "删除成功",
-		})
+	var msg string = "删除成功"
+	if ok := userService.UserDel(c); !ok {
+		msg = "删除失败"
 	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"msg": msg,
+	})
 }
 
 func (ua *UserApi) FileUpload(c *gin.Context) {
