@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-05-28 14:34:11
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-05-28 14:34:52
+ * @LastEditTime: 2022-11-03 17:18:57
  * @FilePath: /allfunc/redis/bloom/main.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -11,7 +11,7 @@ package main
 import (
 	"fmt"
 
-	"./data"
+	"project/allfunc/redis/bloom/data"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -19,7 +19,7 @@ import (
 func main() {
 
 	con := redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%d", "127.0.0.1", 6380),
+		Addr:     fmt.Sprintf("%s:%d", "127.0.0.1", 6379),
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-10 10:56:50
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-11-02 15:42:53
+ * @LastEditTime: 2022-11-03 15:34:20
  * @FilePath: /allfunc/gin_admin/middlewares/Login.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -11,7 +11,6 @@ package middlewares
 import (
 	"fmt"
 	"net/http"
-	"project/allfunc/gin_admin/lib"
 	"project/allfunc/gin_admin/lib/encrypt"
 
 	"github.com/gin-gonic/gin"
@@ -28,9 +27,9 @@ func LoginMiddleWare(routers []interface{}) gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		lib.SessionSet(c) //设置session
+		// lib.SessionSet(c) //设置session
 
-		lib.GetSession(c.Request, c.Writer) // 获取session
+		// lib.GetSession(c.Request, c.Writer) // 获取session
 		uid, _ := c.Cookie("sessionid")
 		sign, _ := c.Cookie("sign")
 

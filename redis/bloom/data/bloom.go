@@ -1,3 +1,11 @@
+/*
+ * @Author: ykk ykk@qq.com
+ * @Date: 2022-05-28 14:34:11
+ * @LastEditors: ykk ykk@qq.com
+ * @LastEditTime: 2022-11-03 17:19:47
+ * @FilePath: /allfunc/redis/bloom/data/bloom.go
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 package data
 
 import (
@@ -16,6 +24,7 @@ type Bloom struct {
 func NewBloom(con *redis.Client) *Bloom {
 	return &Bloom{Conn: con, Key: "bloom", HashFuncs: NewFunc()}
 }
+
 func (b *Bloom) Add(str string) error {
 	var err error
 	for _, f := range b.HashFuncs {

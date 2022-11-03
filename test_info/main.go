@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-15 14:16:49
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-10-12 16:30:11
+ * @LastEditTime: 2022-11-02 17:49:06
  * @FilePath: /test_info/main.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,8 +12,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
-
-	"github.com/robfig/cron/v3"
+	// "github.com/robfig/cron/v3"
 )
 
 type Parent struct {
@@ -61,8 +60,8 @@ func Validation() []error {
 }
 
 type (
-	// 计划任务
-	Cron = cron.Cron
+// 计划任务
+// Cron = cron.New()
 )
 
 func main() {
