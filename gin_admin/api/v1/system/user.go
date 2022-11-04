@@ -2,16 +2,18 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-07-17 12:53:10
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-11-01 18:28:05
+ * @LastEditTime: 2022-11-04 15:27:31
  * @FilePath: /allfunc/leju_test/api/user.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 package system
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"project/allfunc/gin_admin/global"
+	"project/allfunc/gin_admin/lib/redisclient"
 	"project/allfunc/gin_admin/models/system"
 	"strconv"
 
@@ -29,6 +31,17 @@ func (ua *UserApi) UserList(c *gin.Context) {
 
 	users := userService.UserList()
 	Info := UserInfo{Title: "后台", Name: "sfafaf", Users: users}
+	client := redisclient.NewRedisServer().Client
+	err := client.Set(context.Background(), "user_id", 23, 0).Err()
+	if err != nil {
+		panic(err)
+	}
+	val, err := client.Get(context.Background(), "user_id").Result()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("user_id:", val)
+	fmt.Println("clent redis:", client)
 
 	c.HTML(http.StatusOK, "user/list.html", Info)
 }

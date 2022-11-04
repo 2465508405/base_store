@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-08-17 22:03:58
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-10-28 14:11:41
+ * @LastEditTime: 2022-11-04 15:34:01
  * @FilePath: /allfunc/gin_admin/initialize/config.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -104,7 +104,7 @@ func InitGlobalConfig() {
 		DataId: "shop_db.json",
 		Group:  "dev",
 	})
-
+	fmt.Println("content:====>", content)
 	json.Unmarshal([]byte(content), &global.GVA_CONFIG)
 	fmt.Printf("gva_config :%+v\n", global.GVA_CONFIG)
 }

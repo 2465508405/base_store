@@ -11,6 +11,7 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-playground/validator/v10 v10.11.0 // indirect
+	github.com/go-redis/redis v6.15.9+incompatible // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-redsync/redsync/v4 v4.5.0 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
