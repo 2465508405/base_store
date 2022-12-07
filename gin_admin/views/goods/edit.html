@@ -1,0 +1,119 @@
+{{ define "goods/edit.html" }}
+{{template "layouts/header" .}}
+<div class="main" id="mainWrapper">
+    <h3>修改用户</h3>
+    <div class="wrapper table-scroll-wrapper">
+        <div class="row">
+            <div class='col-md-12'>
+                <div class="table-responsive">
+                    <form class="form-inline" method="post" enctype="multipart/form-data" action="/user/postEdit">
+                        <table class="table table-condensed table-add">
+                    
+                            <input type="hidden" value="{{ .user.ID}}" name="id" />
+                            <tr>
+                                <th style="width:10%;">
+                                    <label for="case_foreman_id">用户名:</label>
+                                </th>
+                                <td style="width:90%;">
+                                    <div class="form-group">
+                                        <input type="text" value="{{ .user.Name }} " class="form-control" id="inputPassword2" name="name" placeholder="用户名">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width:10%;">
+                                    <label for="case_foreman_id">email:</label>
+                                </th>
+                                <td style="width:90%;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="inputPassword2" name="email" value="{{ .user.Email }}" placeholder="邮箱">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="case_title">密码:</label>
+                                </th>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name="password" class="form-control" id="inputPassword2" placeholder="密码">
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="case_title">状态:</label>
+                                </th>
+                                <td>
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            {{ if eq .user.Status 1}}
+                                            <input type="radio" name="status" checked id="inlineRadio1" value="1">通过
+                                            {{ else }}
+                                            <input type="radio" name="status" id="inlineRadio1" value="1">通过
+                                            {{ end }}
+                                        </label>
+                                        <label class="radio-inline">
+                                            {{ if eq .user.Status 2}}
+                                            <input type="radio" name="status" checked id="inlineRadio2" value="2"> 待审核
+                                            {{ else }}
+                                            <input type="radio" name="status" id="inlineRadio2" value="2"> 待审核
+                                            {{ end }}
+                                        </label>
+                                        <label class="radio-inline">
+                                            {{ if eq .user.Status 3 }}
+                                            <input type="radio" name="status" checked id="inlineRadio3" value="3"> 通过
+                                            {{ else }}
+                                            <input type="radio" name="status" id="inlineRadio3" value="3"> 通过
+                                            {{ end }}
+
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-primary col-md-offset-4">提交</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>
+<script src="/js/upload.js"></script>
+    <script>
+        $('input[name="test[]"]').UploadImg({
+            url : '/article/upload',
+            // width : '320',
+            //height : '200',
+            quality : '0.8', //压缩率，默认值为0.8
+            // 如果quality是1 宽和高都未设定 则上传原图
+            mixsize : '10000000',
+            //type : 'image/png,image/jpg,image/jpeg,image/pjpeg,image/gif,image/bmp,image/x-png',
+            before : function(blob){
+                $('#img').attr('src',blob);
+                var img = '<img class="images" width="100px" height="100px" src="'+blob+'"/>';
+                var inputImg = '<input type="hidden" name="pic[]" value="'+blob+'"/>';
+                $('.uploadImg').append(img);
+                $('.articleForm').append(inputImg);
+            },
+            error : function(res){
+                $('#img').attr('src','');
+                $('#error').html(res);
+            },
+            success : function(res){
+                $('#imgurl').val(res);
+            }
+        });
+    </script>
+{{template "layouts/footer" .}}
+{{ end }}
+
