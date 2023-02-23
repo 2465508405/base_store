@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-05-30 14:49:14
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-06-10 10:39:56
+ * @LastEditTime: 2023-02-23 17:03:55
  * @FilePath: /allfunc/consul/consul_test/main.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,7 +14,7 @@ import (
 	"github.com/hashicorp/consul/api"
 )
 
-//获取所有服务
+// 获取所有服务
 func AllService() {
 	cfg := api.DefaultConfig()
 	cfg.Address = "127.0.0.1:8500"
@@ -32,7 +32,7 @@ func AllService() {
 	}
 }
 
-//过滤服务
+// 过滤服务
 func FilterService() {
 	cfg := api.DefaultConfig()
 	cfg.Address = "127.0.0.1:8500"

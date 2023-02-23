@@ -2,7 +2,7 @@
  * @Author: ykk ykk@qq.com
  * @Date: 2022-05-22 22:00:57
  * @LastEditors: ykk ykk@qq.com
- * @LastEditTime: 2022-08-19 17:24:24
+ * @LastEditTime: 2023-02-22 17:59:12
  * @FilePath: /allfunc/viper/main.go
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -25,7 +25,7 @@ type ServerConfig struct {
 	MysqlConfig MysqlConfig `mapstructure:"mysql"`
 }
 
-//读取配置文件内容
+// 读取配置文件内容
 func readConfig() {
 	v := viper.New()
 	v.SetConfigFile("./config.yaml")
@@ -45,7 +45,7 @@ func GetEnvInfo(env string) bool {
 	return viper.GetBool(env)
 }
 
-//配置文件隔离
+// 配置文件隔离
 func DevOnlineConfigDiv() {
 
 	debug := GetEnvInfo("MXSHOP_DEBUG")

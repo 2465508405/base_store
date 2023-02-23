@@ -2,6 +2,23 @@
 执行指令： protoc -I . --go_out .  --go-grpc_out . helloworld.proto 
 
 
+三、Protobuf数据存储方式
+1、T-L-V数据存储方式
+T-L-V（Tag - Length - Value），即标识符-长度-字段值的存储方式，其原理是以标识符-长度-字段值表示单个数据，最终将所有数据拼接成一个字节流，从而实现数据存储的功能。
+其中Length可选存储，如储存Varint编码数据就不需要存储Length，此时为T-V存储方式。
+gRPC快速入门（二）——Protobuf序列化原理解析
+T-L-V 存储方式的优点：
+A、不需要分隔符就能分隔开字段，减少了分隔符的使用。
+B、各字段存储得非常紧凑，存储空间利用率非常高。
+C、如果某个字段没有被设置字段值，那么该字段在序列化时的数据中是完全不存在的，即不需要编码，相应字段在解码时才会被设置为默认值。
+
+2、T-V数据存储方式
+消息字段的标识号、数据类型、字段值经过Protobuf采用Varint和Zigzag编码后，以T-V（Tag-Value）方式进行数据存储。
+对于Varint与Zigzag编码方式编码的数据，省略了T-L-V中的字节长度Length。
+gRPC快速入门（二）——Protobuf序列化原理解析
+Tag是消息字段标识符和数据类型经Varint与Zigzag编码后的值，因此Tag存储了字段的标识符（field_number）和数据类型（wire_type），即Tag = 字段数据类型（wire_type） + 标识号（field_number）。
+Tag占用一个字节的长度（如果标识符大于15，则占用多一个字节的位置），字段数据类型（wire_type）占用3个bit，字段标识符（field_number）占用4个bit，最高位用于Varint编码保留。
+
 数据类型：
 
 嵌套类型
